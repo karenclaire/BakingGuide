@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Baking Guide</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="ingredient_measure">%1$s %2$s</string>
+    <string name="position">position</string>
+    <string name="previous_step"> Previous Step </string>
+    <string name="next_step"> Next Step</string>
+</resources>

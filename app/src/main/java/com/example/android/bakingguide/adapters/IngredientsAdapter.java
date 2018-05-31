@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingguide.R;
-import com.example.android.bakingguide.interfaces.IngredientsModelInterface;
+import com.example.android.bakingguide.model.Ingredients;
 
 import java.util.ArrayList;
 
@@ -18,11 +18,11 @@ import butterknife.ButterKnife;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
 
-    private ArrayList<IngredientsModelInterface> ingredients;
+    private ArrayList<Ingredients> mIngredients;
     Context mContext;
 
     public IngredientsAdapter() {
-        this.ingredients = new ArrayList<>();
+        this.mIngredients = new ArrayList<>();
     }
 
     @Override
@@ -31,31 +31,37 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         View view = inflater.inflate(layoutId, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
 
-        return viewHolder;
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ingredientsNameTextView.setText(ingredients.get(position).getIngredientDetail());
+        holder.ingredientsNameTextView.setText(mIngredients.get(position).getIngredients());
+        holder.measureTextView.setText(mIngredients.get(position).getMeasure());
+        holder.quantityTextView.setText(mIngredients.get(position).getMeasure());
     }
 
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return mIngredients.size();
     }
 
 
-    public void setIngredients(ArrayList<IngredientsModelInterface> ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredients(ArrayList<Ingredients> ingredients) {
+        this.mIngredients = ingredients;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ingredients_text)
+        @BindView(R.id.ingredients_name)
         TextView ingredientsNameTextView;
+        @BindView(R.id.ingredients_measure )
+        TextView measureTextView;
+        @BindView(R.id.ingredients_quantity)
+        TextView quantityTextView;
 
         public ViewHolder(View view) {
             super(view);

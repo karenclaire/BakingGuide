@@ -1,14 +1,6 @@
 package com.example.android.bakingguide.model;
 
-import android.text.TextUtils;
-
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
-
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
-import org.parceler.ParcelProperty;
-
-@Parcel(Parcel.Serialization.BEAN)
+/**@Parcel(Parcel.Serialization.BEAN)
 public class InstructionsModel implements InstructionsModelInterface {
 
     @ParcelProperty("instructions")
@@ -50,3 +42,4 @@ public class InstructionsModel implements InstructionsModelInterface {
     public String getThumbnailUrl() {return mInstructions.thumbnailURL;}
 
    }
+**/

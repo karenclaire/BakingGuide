@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.bakingguide.R;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
+import com.example.android.bakingguide.model.Instructions;
+import com.example.android.bakingguide.model.Recipe;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -72,8 +72,8 @@ public class InstructionsDetailsFragment extends Fragment {
 
     int mCurrentPosition;
 
-   ArrayList<RecipeModelInterface> mRecipes;
-    ArrayList<InstructionsModelInterface> mInstructions;
+   ArrayList<Recipe> mRecipes;
+    ArrayList<Instructions> mInstructions;
     SimpleExoPlayer player;
     private BandwidthMeter bandwidthMeter;
     private Handler mainHandler;
@@ -98,7 +98,7 @@ public class InstructionsDetailsFragment extends Fragment {
     private onInstructionsClickHandler instructionsClickHandler;
 
     public interface onInstructionsClickHandler {
-        void onInstructionsClickHandler(List<InstructionsModelInterface> instructions, int Index, String recipeName);
+        void onInstructionsClickHandler(List<Instructions> instructions, int Index, String recipeName);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class InstructionsDetailsFragment extends Fragment {
             else {
                 mRecipes =getArguments().getParcelable(RECIPES_BUNDLE_KEY);
                 //casting List to ArrayList
-                mInstructions=(ArrayList<InstructionsModelInterface>)mRecipes.get(0).getInstructions();
+                mInstructions=(ArrayList<Instructions>)mRecipes.get(0).getInstructions();
                 mCurrentPosition=0;
             }
 
@@ -144,14 +144,14 @@ public class InstructionsDetailsFragment extends Fragment {
         exoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.exoplayer_view);
         exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
 
-        String videoURL = mInstructions.get(mCurrentPosition).getVideoUrl();
+        String videoURL = mInstructions.get(mCurrentPosition).getVideoURL();
 
         /**if (rootView.findViewWithTag("sw600dp-port-recipe_step_detail")!=null) {
             recipeName=((RecipeDetailActivity) getActivity()).recipeName;
             ((RecipeDetailActivity) getActivity()).getSupportActionBar().setTitle(recipeName);
         }**/
 
-        String imageUrl= mInstructions.get(mCurrentPosition).getThumbnailUrl();
+        String imageUrl= mInstructions.get(mCurrentPosition).getThumbnailURL();
         if (imageUrl!="") {
             Uri builtUri = Uri.parse(imageUrl).buildUpon().build();
             ImageView thumbImage = (ImageView) rootView.findViewById(R.id.thumbnail_image_view);
@@ -161,7 +161,7 @@ public class InstructionsDetailsFragment extends Fragment {
         if (!videoURL.isEmpty()) {
 
 
-            initializePlayer(Uri.parse(mInstructions.get(mCurrentPosition).getVideoUrl()));
+            initializePlayer(Uri.parse(mInstructions.get(mCurrentPosition).getVideoURL()));
 
             /**if (rootView.findViewWithTag("sw600dp-land-recipe_step_detail")!=null) {
                 getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1,-2));
@@ -278,7 +278,7 @@ public class InstructionsDetailsFragment extends Fragment {
         }
     }
 
-    public void setInstructions(ArrayList<InstructionsModelInterface> instructions) {
+    public void setInstructions(ArrayList<Instructions> instructions) {
         this.mInstructions = instructions;
 
 }}

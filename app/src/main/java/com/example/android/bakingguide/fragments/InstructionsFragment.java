@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingguide.R;
 import com.example.android.bakingguide.adapters.InstructionsAdapter;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
+import com.example.android.bakingguide.model.Instructions;
 
 import org.parceler.Parcels;
 
@@ -27,7 +27,7 @@ public class InstructionsFragment extends Fragment {
     @BindView(R.id.instructions_recycler)
     RecyclerView instructionsRecyclerView;
 
-    static ArrayList<InstructionsModelInterface> mInstructions;
+    static ArrayList<Instructions> mInstructions;
     InstructionsAdapter mInstructionsAdapter;
     static InstructionsAdapter.OnClickHandler mOnInstructionsClickHandler;
 
@@ -64,7 +64,7 @@ public class InstructionsFragment extends Fragment {
         return rootView;
     }
 
-    public static void setInstructions(ArrayList<InstructionsModelInterface> instructions) {
+    public static void setInstructions(ArrayList<Instructions> instructions) {
         mInstructions = instructions;
     }
     public static void setOnInstructionsClickHandler(InstructionsAdapter.OnClickHandler onInstructionsClickHandler) {

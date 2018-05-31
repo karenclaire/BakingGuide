@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingguide.R;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
 import com.example.android.bakingguide.model.Ingredients;
 import com.example.android.bakingguide.model.Instructions;
 import com.example.android.bakingguide.model.Recipe;
@@ -26,24 +25,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
     private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
 
 
-    private List<Recipe> mRecipeList;
+    private List<Recipe> mRecipes;
     Context mContext;
     private String mRecipeName;
     private String mIngredientName;
     private String mInstructionText;
     private RecipeOnClickListener mRecipeOnClickListener;
-    private ArrayList<RecipeModelInterface> recipes;
-    private List<Ingredients> mIngredientsList;
-    private List<Instructions> mInstructionsList;
+    private ArrayList<Recipe> recipes;
+    private List<Ingredients> mIngredients;
+    private List<Instructions> mInstructions;
+    RecipeOnClickListener getmRecipeOnClickListener;
 
 
-    public RecipeAdapter(Context context, List <Recipe> recipeList){
+    public RecipeAdapter(Context context, List <Recipe> recipes, RecipeOnClickListener recipeOnClickListener){
         this.mContext = context;
-        this.mRecipeList = recipeList;
+        this.mRecipes = recipes;
+        this.mRecipeOnClickListener = recipeOnClickListener;
     }
 
 
-    public void setRecipes(ArrayList<RecipeModelInterface> recipes) {
+    public void setRecipes(ArrayList<Recipe> recipes) {
         mRecipeName=recipes.get(0).getName();
         this.recipes = recipes;
         notifyDataSetChanged();
@@ -69,7 +70,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
     }
     public interface RecipeOnClickListener {
-        void onListItemClick(int position, RecipeModelInterface recipeModelInterface );
+        void onListItemClick(int position, Recipe recipes );
 
     }
 
@@ -84,7 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
             @BindView(R.id.recipe_name)
             TextView recipeNameTextView;
             int position;
-            RecipeModelInterface recipeModelInterface;
+            Recipe recipes;
 
             public RecyclerViewHolder(View view) {
                 super(view);
@@ -94,7 +95,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
             @Override
             public void onClick(View view) {
-                 mRecipeOnClickListener.onListItemClick(position, recipeModelInterface);}
+                 mRecipeOnClickListener.onListItemClick(position, recipes);}
         }
 
 

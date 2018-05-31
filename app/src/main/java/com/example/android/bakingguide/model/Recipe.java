@@ -1,11 +1,6 @@
 package com.example.android.bakingguide.model;
 
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
-
-import java.util.ArrayList;
-
-@Parcel
+/**@Parcel
 public class Recipe {
     public final int id;
     public final String name;
@@ -27,9 +22,15 @@ public class Recipe {
         this.instructions = instructions;
         this.imageURL = imageURL;
     }
-}
+}**/
 
-/**public class Recipe implements Parcelable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Recipe implements Parcelable {
 
     private Integer mId;
     private String mName;
@@ -154,4 +155,4 @@ public class Recipe {
         }
     };
 
-}**/
+}

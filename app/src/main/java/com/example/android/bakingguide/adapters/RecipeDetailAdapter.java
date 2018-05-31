@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingguide.R;
-import com.example.android.bakingguide.interfaces.IngredientsModelInterface;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
+import com.example.android.bakingguide.model.Ingredients;
+import com.example.android.bakingguide.model.Instructions;
 
 import java.util.ArrayList;
 
@@ -18,18 +18,17 @@ import butterknife.BindView;
 public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.RecipeDetailViewHolder>{
 
 
-    ArrayList<IngredientsModelInterface> mIngredients;
-    ArrayList<InstructionsModelInterface> mInstructions;
-    InstructionsModelInterface instructionsModelInterface;
-    IngredientsModelInterface ingredientsModelInterface;
+    ArrayList<Ingredients> mIngredients;
+    ArrayList<Instructions> mInstructions;
+
 
     Context mContext;
     RecipeDetailOnClickListener mRecipeDetailOnClickListener;
     int mCurrentPosition;
 
 
-    public RecipeDetailAdapter(android.content.Context context, ArrayList<IngredientsModelInterface>
-            ingredients, ArrayList<InstructionsModelInterface> instructions){
+    public RecipeDetailAdapter(android.content.Context context, ArrayList<Ingredients>
+            ingredients, ArrayList<Instructions> instructions){
         this.mContext = context;
         this.mIngredients = ingredients;
         this.mInstructions= instructions;
@@ -51,7 +50,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     public void onBindViewHolder(@NonNull RecipeDetailViewHolder holder, int position) {
 
         //Ingredients List
-        String ingredients =mIngredients.get(position).getIngredientDetail();
+        String ingredients =mIngredients.get(position).getIngredients();
         //Instructions List
         String instructions = mInstructions.get(position).getShortDescription();
 
@@ -63,7 +62,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     }
 
     public interface RecipeDetailOnClickListener {
-        void onDetailListItemClick(InstructionsModelInterface clickedItemIndex);
+        void onDetailListItemClick(Instructions clickedItemIndex);
     }
 
     @Override
@@ -74,8 +73,12 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
 
 
     public class RecipeDetailViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ingredients_text)
+        @BindView(R.id.ingredients_name)
         TextView mIngredientsTextView;
+        @BindView(R.id.ingredients_measure )
+        TextView measureTextView;
+        @BindView(R.id.ingredients_quantity)
+        TextView quantityTextView;
 
         @BindView(R.id.instruction_text)
             TextView mInstructionTextView;

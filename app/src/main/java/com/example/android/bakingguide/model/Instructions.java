@@ -1,9 +1,6 @@
 package com.example.android.bakingguide.model;
 
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
-
-@Parcel
+/**@Parcel
 public class Instructions {
     public final int id;
     public final String description;
@@ -27,7 +24,7 @@ public class Instructions {
     }
 }
 
-/**
+**/
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -119,4 +116,4 @@ public class Instructions implements Parcelable {
             return new Instructions[size];
         }
     };
-}**/
+}

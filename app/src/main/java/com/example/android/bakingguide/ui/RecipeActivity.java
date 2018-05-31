@@ -7,14 +7,12 @@ import android.widget.FrameLayout;
 
 import com.example.android.bakingguide.R;
 import com.example.android.bakingguide.fragments.RecipeListFragment;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
+import com.example.android.bakingguide.model.Recipe;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.android.bakingguide.R.layout.activity_recipe;
 
 /**
  * Created by Karen Claire Ulmer
@@ -26,6 +24,8 @@ import static com.example.android.bakingguide.R.layout.activity_recipe;
  * https://github.com/nikosvaggalis/Udacity-Advanced-Developer-Nanodegree-Baking-App-2017
  * https://github.com/tonynguyen0523/Baking-App
  *https://github.com/udacity/AdvancedAndroid_ClassicalMusicQuiz
+ * https://stackoverflow.com/questions/4088080/get-boolean-from-database-using-android-and-sqlite
+ *
  */
 
 public class RecipeActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class RecipeActivity extends AppCompatActivity {
     static final String CURRENT_INDEX_BUNDLE_KEY = "RECIPE_CURRENT_INDEX";
     static final String RECIPES_BUNDLE_KEY = "RECIPES";
     int mCurrentPosition;
-    ArrayList<RecipeModelInterface> mRecipes;
+    ArrayList<Recipe> mRecipes;
     Context mContext;
 
     String recipeName;
@@ -47,11 +47,12 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(activity_recipe);
+        setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
 
 
-        recipeListContainer = (FrameLayout) findViewById(R.id.recipe_list_fragment_container);
+        recipeListContainer =  findViewById(R.id.recipe_list_fragment_container);
+
 
         RecipeListFragment recipeListFragment = new RecipeListFragment();
         getSupportFragmentManager()

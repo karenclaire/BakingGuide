@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import com.example.android.bakingguide.R;
 import com.example.android.bakingguide.adapters.RecipeAdapter;
 import com.example.android.bakingguide.adapters.RecipeAdapter.RecipeOnClickListener;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
 import com.example.android.bakingguide.model.Ingredients;
 import com.example.android.bakingguide.model.Recipe;
 import com.example.android.bakingguide.retrofit.RecipeBuilder;
@@ -43,7 +42,7 @@ public class RecipeListFragment extends Fragment implements RecipeAdapter.Recipe
 
     ArrayList<Recipe> mRecipeList;
     RecipeAdapter mRecipeAdapter;
-    ArrayList<RecipeModelInterface> recipes;
+    ArrayList<Recipe> recipes;
 
     String mRecipeName;
     String mIngredientName;
@@ -73,13 +72,14 @@ public class RecipeListFragment extends Fragment implements RecipeAdapter.Recipe
         final View rootView = inflater.inflate(R.layout.recipe_list_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
+       assert mRecyclerView != null;
 
         if (getResources().getBoolean(R.bool.tablet_mode)) {
             final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
             mRecyclerView.setHasFixedSize(true);
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             //mRecipeAdapter.setOnItemClickListener(mRecipeOnClickListener);
-            mRecipeAdapter.setRecipes(new ArrayList<RecipeModelInterface>());
+            mRecipeAdapter.setRecipes(recipes);
             mRecyclerView.setAdapter(mRecipeAdapter);
             mRecyclerView.setLayoutManager(layoutManager);
 
@@ -87,7 +87,8 @@ public class RecipeListFragment extends Fragment implements RecipeAdapter.Recipe
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             mRecyclerView.setAdapter(mRecipeAdapter);
             //mRecipeAdapter.setOnItemClickListener(mRecipeOnClickListener);
-            mRecipeAdapter.setRecipes(new ArrayList<RecipeModelInterface>());
+            mRecipeAdapter = new RecipeAdapter(mContext, mRecipeList, mRecipeOnClickListener);
+            mRecipeAdapter.setRecipes(recipes);
             mRecyclerView.setAdapter(mRecipeAdapter);
 
         }
@@ -95,7 +96,7 @@ public class RecipeListFragment extends Fragment implements RecipeAdapter.Recipe
             @Override
             public void onResponse(retrofit2.Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
 
-                recipes = new ArrayList<RecipeModelInterface>();
+                recipes = new ArrayList<Recipe>();
 
                 for (Recipe recipe : response.body()) {
                     //recipes.add(new RecipeModel(recipe));
@@ -120,7 +121,7 @@ public class RecipeListFragment extends Fragment implements RecipeAdapter.Recipe
 
 
     @Override
-    public void onListItemClick(int position, RecipeModelInterface recipeModelInterface) {
+    public void onListItemClick(int position, Recipe recipes) {
         Intent intent = new Intent(getContext(), RecipeDetailActivity.class);
         intent.putExtra(Intent.EXTRA_INTENT, Parcels.wrap(recipes));
         intent.putExtra(Intent.EXTRA_INDEX, position);

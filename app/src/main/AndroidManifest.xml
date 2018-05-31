@@ -30,13 +30,6 @@
             android:value=".ui.RecipeActivity"/>
         </activity>
 
-        <activity
-            android:name=".ui.RecipeStepDetailActivity"
-            android:parentActivityName=".modules.recipes.RecipeDetailActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".modules.recipes.RecipeDetailActivity"/>
-        </activity>
     </application>
 
 </manifest>

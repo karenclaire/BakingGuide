@@ -1,6 +1,6 @@
 package com.example.android.bakingguide.interfaces;
 
-public interface InstructionsModelInterface {
+/**public interface InstructionsModelInterface {
 
     int getId();
 
@@ -12,4 +12,4 @@ public interface InstructionsModelInterface {
         Boolean hasThumbnail();
         //Uri getDefaultMediaPicture();
 
-}
+}**/

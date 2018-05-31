@@ -1,11 +1,9 @@
 package com.example.android.bakingguide.model;
 
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
-
-@Parcel
+/**@Parcel
 public class Ingredients {
     @SerializedName("ingredients")
     public final String name;
@@ -20,7 +18,7 @@ public class Ingredients {
     }
 }
 
-/**
+**/
 
 public class Ingredients implements Parcelable {
 
@@ -46,7 +44,7 @@ public class Ingredients implements Parcelable {
 
     public String getIngredients() {
         return mIngredients;
-        String.format("%s %s of %s", mIngredients.quantity, mIngredients.measure, mIngredients.name);
+        //String.format("%s %s of %s", mIngredients.quantity, mIngredients.measure, mIngredients.name);
     }
 
     public void setIngredients(String ingredients) {
@@ -89,4 +87,4 @@ public class Ingredients implements Parcelable {
             return new Ingredients[size];
         }
     };
-}**/
+}

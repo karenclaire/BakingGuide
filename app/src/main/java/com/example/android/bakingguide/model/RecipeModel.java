@@ -1,18 +1,6 @@
 package com.example.android.bakingguide.model;
 
-import android.net.Uri;
-import android.text.TextUtils;
-
-import com.example.android.bakingguide.interfaces.IngredientsModelInterface;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
-
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
-
-import java.util.ArrayList;
-
-@Parcel
+/**@Parcel
 public class RecipeModel implements RecipeModelInterface {
         public Recipe recipe;
         public ArrayList<IngredientsModel> mIngredients;
@@ -65,4 +53,4 @@ public class RecipeModel implements RecipeModelInterface {
 
     }
 
-
+**/

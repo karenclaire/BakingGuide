@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingguide.R;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
+import com.example.android.bakingguide.model.Instructions;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,11 @@ import butterknife.ButterKnife;
 
 public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapter.ViewHolder> {
 
-        ArrayList<InstructionsModelInterface> instructions;
+        ArrayList<Instructions> mInstructions;
         InstructionsAdapter.OnClickHandler onClickHandler;
 
         public InstructionsAdapter() {
-            this.instructions = new ArrayList<>();
+            this.mInstructions = new ArrayList<>();
         }
 
         @Override
@@ -34,16 +34,16 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
 
         @Override
         public void onBindViewHolder(InstructionsAdapter.ViewHolder holder, int position) {
-            holder.instructionsTextView.setText(instructions.get(position).getShortDescription());
+            holder.instructionsTextView.setText(mInstructions.get(position).getShortDescription());
         }
 
     @Override
     public int getItemCount() {
-        return instructions.size();
+        return mInstructions.size();
     }
 
-    public void setInstructions(ArrayList<InstructionsModelInterface> instructions) {
-        this.instructions = instructions;
+    public void setInstructions(ArrayList<Instructions> instructions) {
+        this.mInstructions = instructions;
         notifyDataSetChanged();
     }
 
@@ -52,14 +52,14 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
     }
 
     public interface OnClickHandler {
-        void onInstructionsClicked(int position, InstructionsModelInterface instructions);
+        void onInstructionsClicked(int position, Instructions instructions);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.instruction_text)
         TextView instructionsTextView;
 
-        InstructionsModelInterface instructions;
+        Instructions instructions;
         int position;
 
         public ViewHolder(View view) {

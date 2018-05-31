@@ -2,7 +2,6 @@ package com.example.android.bakingguide.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +13,9 @@ import com.example.android.bakingguide.adapters.RecipeDetailAdapter;
 import com.example.android.bakingguide.fragments.IngredientsFragment;
 import com.example.android.bakingguide.fragments.InstructionsDetailsFragment;
 import com.example.android.bakingguide.fragments.InstructionsFragment;
-import com.example.android.bakingguide.interfaces.IngredientsModelInterface;
-import com.example.android.bakingguide.interfaces.InstructionsModelInterface;
-import com.example.android.bakingguide.interfaces.RecipeModelInterface;
+import com.example.android.bakingguide.model.Ingredients;
+import com.example.android.bakingguide.model.Instructions;
+import com.example.android.bakingguide.model.Recipe;
 
 import org.parceler.Parcels;
 
@@ -34,9 +33,9 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
     public static final String STEPS_INDEX = "RECIPE_STEP_INDEX";
 
     InstructionsDetailsFragment mInstructionsDetailsFragment;
-    ArrayList<RecipeModelInterface> mRecipes;
-    ArrayList<InstructionsModelInterface> mInstructions;
-    ArrayList<IngredientsModelInterface> mIngredients;
+    ArrayList<Recipe> mRecipes;
+    ArrayList<Instructions> mInstructions;
+    ArrayList<Ingredients> mIngredients;
 
     //recipe_details view
     @BindView(R.id.ingredients_instructions_view)
@@ -69,22 +68,22 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
             mRecipes = Parcels.unwrap(intent.getParcelableExtra(Intent.EXTRA_INTENT));
         }
 
-        RecipeModelInterface recipeModelInterface = mRecipes.get(currentPosition);
+        Recipe recipes = mRecipes.get(currentPosition);
 
-        setup(recipeModelInterface);
+        setup(recipes);
 
     }
-    private void setup(RecipeModelInterface recipeModelInterface) {
+    private void setup(Recipe recipes) {
         mScrollView.scrollTo(0, 0);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
 
 
-        setTitle(recipeModelInterface.getName());
+        setTitle(recipes.getName());
 
         // Ingredient list fragment
-        ArrayList<IngredientsModelInterface> ingredients = (ArrayList<IngredientsModelInterface>) recipeModelInterface.getIngredients();
+        ArrayList<Ingredients> ingredients = (ArrayList<Ingredients>) recipes.getIngredients();
 
         IngredientsFragment ingredientsFragment = new IngredientsFragment();
 
@@ -93,10 +92,10 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
                 .replace(R.id.ingredients_fragment_container, ingredientsFragment, IngredientsFragment.class.toString())
                 .commit();
 
-        ingredientsFragment.setIngredients(ingredients);
+        ingredientsFragment.setIngredients(mIngredients);
 
         // Instructions list fragment
-        mInstructions = (ArrayList< InstructionsModelInterface>) recipeModelInterface.getInstructions();
+        mInstructions = (ArrayList< Instructions>) recipes.getInstructions();
         InstructionsFragment instructionsFragment = new InstructionsFragment();
         InstructionsFragment.setOnInstructionsClickHandler(this);
 
@@ -112,7 +111,7 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
         }
     }
 
-    private void setupInstructionsDetailsFragment(InstructionsModelInterface instructions) {
+    private void setupInstructionsDetailsFragment(Instructions instructions) {
         InstructionsDetailsFragment instructionsDetailsFragment = new InstructionsDetailsFragment();
         instructionsDetailsFragment.setInstructions(mInstructions);
 
@@ -124,7 +123,7 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
 
 
     @Override
-    public void onInstructionsClicked(int position, InstructionsModelInterface instructions) {
+    public void onInstructionsClicked(int position, Instructions instructions) {
 
         final InstructionsDetailsFragment instructionsDetailsFragment = new InstructionsDetailsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -132,7 +131,7 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
         getSupportActionBar().setTitle(recipeName);
 
         Bundle stepBundle = new Bundle();
-        stepBundle.putParcelable(BUNDLE_DATA_KEY, (Parcelable) instructions);
+        stepBundle.putParcelable(BUNDLE_DATA_KEY, instructions);
         stepBundle.putInt(STEPS_INDEX,currentPosition);
         stepBundle.putString("Title",recipeName);
         instructionsDetailsFragment.setArguments(stepBundle);
@@ -150,13 +149,11 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
         }
 
 
-
-
     }
 
 
     @Override
-    public void onDetailListItemClick(InstructionsModelInterface clickedItemIndex) {
+    public void onDetailListItemClick(Instructions clickedItemIndex) {
 
     }
 }

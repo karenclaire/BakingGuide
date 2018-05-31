@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingguide.R;
 import com.example.android.bakingguide.adapters.IngredientsAdapter;
-import com.example.android.bakingguide.interfaces.IngredientsModelInterface;
+import com.example.android.bakingguide.model.Ingredients;
 
 import org.parceler.Parcels;
 
@@ -28,20 +28,20 @@ public class IngredientsFragment  extends android.support.v4.app.Fragment{
     @BindView(R.id.ingredients_recycler)
     RecyclerView ingredientsRecyclerView;
 
-    ArrayList<IngredientsModelInterface> ingredients;
+    ArrayList<Ingredients> mIngredients;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(BUNDLE_DATA_KEY, Parcels.wrap(ingredients));
+        outState.putParcelable(BUNDLE_DATA_KEY, Parcels.wrap(mIngredients));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            ingredients = Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_DATA_KEY));
+            mIngredients = Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_DATA_KEY));
         }
 
         View rootView = inflater.inflate(R.layout.fragment_ingredients, container, false );
@@ -49,7 +49,7 @@ public class IngredientsFragment  extends android.support.v4.app.Fragment{
         ButterKnife.bind(this, rootView);
 
         IngredientsAdapter adapter = new IngredientsAdapter();
-        adapter.setIngredients(ingredients);
+        adapter.setIngredients(mIngredients);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getContext(),
                 LinearLayoutManager.VERTICAL,
                 false
@@ -61,7 +61,7 @@ public class IngredientsFragment  extends android.support.v4.app.Fragment{
         return rootView;
     }
 
-    public void setIngredients(ArrayList<IngredientsModelInterface> ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredients(ArrayList<Ingredients> ingredients) {
+        this.mIngredients = ingredients;
     }
 }

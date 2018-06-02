@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,8 @@ public class InstructionsDetailsFragment extends Fragment {
     public static final String STEPS_INDEX = "RECIPE_STEP_INDEX";
     static final String CURRENT_INDEX_BUNDLE_KEY = "RECIPE_CURRENT_INDEX";
     static final String RECIPES_BUNDLE_KEY = "RECIPES";
+
+    public static final String DEBUG_TAG = "DebugStuff";
 
     @BindView(R.id.exoplayer_view)
     public SimpleExoPlayerView exoPlayerView;
@@ -103,6 +106,7 @@ public class InstructionsDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "InstructionsDetailFragment onCreateView");
         TextView textView;
         mainHandler = new Handler();
         bandwidthMeter = new DefaultBandwidthMeter();
@@ -220,6 +224,7 @@ public class InstructionsDetailsFragment extends Fragment {
     }
 
     private void initializePlayer(Uri mediaUri) {
+        Log.d(DEBUG_TAG, "InstructionsDetailFragment initializePlayerUri" + mediaUri);
         if (player == null) {
             TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
             DefaultTrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);

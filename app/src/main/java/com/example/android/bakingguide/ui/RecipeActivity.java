@@ -3,6 +3,7 @@ package com.example.android.bakingguide.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.android.bakingguide.R;
@@ -31,6 +32,7 @@ import butterknife.ButterKnife;
 public class RecipeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = RecipeActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = "DebugStuff";
     static final String CURRENT_INDEX_BUNDLE_KEY = "RECIPE_CURRENT_INDEX";
     static final String RECIPES_BUNDLE_KEY = "RECIPES";
     int mCurrentPosition;
@@ -44,6 +46,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "RecipeActivity onCreate");
         super.onCreate(savedInstanceState);
 
 
@@ -70,8 +73,9 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
         @Override
-        protected void onRestart() {
-            super.onRestart();
+        protected void onStart() {
+            Log.d(DEBUG_TAG, "RecipeActivity onStart");
+            super.onStart();
             // Refresh recipe list in case database was updated
             RecipeListFragment recipeListFragment = (RecipeListFragment) getSupportFragmentManager().
                     findFragmentById(R.id.recipe_list_fragment_container);
@@ -79,8 +83,9 @@ public class RecipeActivity extends AppCompatActivity {
         }
       @Override
       public void onSaveInstanceState(Bundle outState) {
+          Log.d(DEBUG_TAG, "RecipeActivity onSavedInstance");
           super.onSaveInstanceState(outState);
-          outState.putString("Title",recipeName);
+
       }
 
 

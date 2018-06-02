@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class InstructionsFragment extends Fragment {
 
     public static final String BUNDLE_DATA_KEY = "RECIPE_STEPS_DATA";
+    public static final String DEBUG_TAG ="DebugStuff";
 
     @BindView(R.id.instructions_recycler)
     RecyclerView instructionsRecyclerView;
@@ -41,6 +43,7 @@ public class InstructionsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "IngstructionsFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
         ButterKnife.bind(this, rootView);
 

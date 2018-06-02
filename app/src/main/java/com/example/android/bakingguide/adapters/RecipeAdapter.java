@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +24,20 @@ import butterknife.ButterKnife;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerViewHolder> {
 
     private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
+    private static final String DEBUG_TAG = "DebugStuff";
 
-
-    private List<Recipe> mRecipes;
+    ArrayList<Recipe> mRecipes;
     Context mContext;
     private String mRecipeName;
     private String mIngredientName;
     private String mInstructionText;
     private RecipeOnClickListener mRecipeOnClickListener;
-    private ArrayList<Recipe> recipes;
     private List<Ingredients> mIngredients;
     private List<Instructions> mInstructions;
-    RecipeOnClickListener getmRecipeOnClickListener;
+    RecipeOnClickListener RecipeOnClickListener;
 
 
-    public RecipeAdapter(Context context, List <Recipe> recipes, RecipeOnClickListener recipeOnClickListener){
+    public RecipeAdapter(Context context, ArrayList <Recipe> recipes, RecipeOnClickListener recipeOnClickListener){
         this.mContext = context;
         this.mRecipes = recipes;
         this.mRecipeOnClickListener = recipeOnClickListener;
@@ -45,8 +45,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
 
     public void setRecipes(ArrayList<Recipe> recipes) {
-        mRecipeName=recipes.get(0).getName();
-        this.recipes = recipes;
+        this.mRecipes = recipes;
         notifyDataSetChanged();
     }
 
@@ -65,7 +64,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
     @Override
     public void onBindViewHolder(RecipeAdapter.RecyclerViewHolder holder, int position) {
-        holder.recipeNameTextView.setText(recipes.get(position).getName());
+        Log.d(DEBUG_TAG, "RecipeAdapter onBIndViewHolder");
+        holder.recipeNameTextView.setText(mRecipes.get(position).getName());
 
 
     }
@@ -76,7 +76,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return mRecipes.size();
     }
 
         class RecyclerViewHolder extends ViewHolder implements View.OnClickListener {
@@ -95,6 +95,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
             @Override
             public void onClick(View view) {
+                Log.d(DEBUG_TAG, "RecipeAdapter onBIndViewHolder");
                  mRecipeOnClickListener.onListItemClick(position, recipes);}
         }
 

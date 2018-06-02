@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 public class IngredientsFragment  extends android.support.v4.app.Fragment{
 
     private static final String LOG_TAG = IngredientsFragment.class.getSimpleName();
+    public static final String DEBUG_TAG = "DebugStuff";
 
     public static final String BUNDLE_DATA_KEY = "INGREDIENTS_DATA";
 
@@ -40,6 +42,7 @@ public class IngredientsFragment  extends android.support.v4.app.Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "IngredientsFragment onCreateView");
         if (savedInstanceState != null) {
             mIngredients = Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_DATA_KEY));
         }
@@ -62,6 +65,7 @@ public class IngredientsFragment  extends android.support.v4.app.Fragment{
     }
 
     public void setIngredients(ArrayList<Ingredients> ingredients) {
+        Log.d(DEBUG_TAG, "IngredientsFragment setIngredients");
         this.mIngredients = ingredients;
     }
 }

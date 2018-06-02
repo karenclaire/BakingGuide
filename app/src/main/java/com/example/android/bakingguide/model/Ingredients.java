@@ -22,6 +22,9 @@ public class Ingredients {
 
 public class Ingredients implements Parcelable {
 
+    public static final String DEBUG_TAG = "DebugStuff";
+
+
     private Double mQuantity;
     private String mMeasure;
     private String mIngredients;
@@ -43,8 +46,8 @@ public class Ingredients implements Parcelable {
     }
 
     public String getIngredients() {
-        return mIngredients;
-        //String.format("%s %s of %s", mIngredients.quantity, mIngredients.measure, mIngredients.name);
+        return mIngredients ;
+                //String.format("%s %s of %s", mIngredients.quantity, mIngredients.measure, mIngredients.name);
     }
 
     public void setIngredients(String ingredients) {
@@ -65,6 +68,7 @@ public class Ingredients implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         if (mQuantity == null) {
             dest.writeByte((byte) (0x00));
         } else {

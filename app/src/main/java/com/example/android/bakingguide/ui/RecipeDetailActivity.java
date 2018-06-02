@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ScrollView;
 
 import com.example.android.bakingguide.R;
@@ -32,6 +33,8 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
      static final String BUNDLE_DATA_KEY = "RECIPE_STEPS_DATA";
     public static final String STEPS_INDEX = "RECIPE_STEP_INDEX";
 
+    public static final String DEBUG_TAG = "DebugStuff";
+
     InstructionsDetailsFragment mInstructionsDetailsFragment;
     ArrayList<Recipe> mRecipes;
     ArrayList<Instructions> mInstructions;
@@ -54,6 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "RecipeDetailActivity onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.recipe_detail);
@@ -74,6 +78,7 @@ public class RecipeDetailActivity extends AppCompatActivity  implements Instruct
 
     }
     private void setup(Recipe recipes) {
+        Log.d(DEBUG_TAG, "RecycleDetailActivitx setup Recipe");
         mScrollView.scrollTo(0, 0);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
